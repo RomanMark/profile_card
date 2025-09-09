@@ -11,7 +11,7 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('My Card'),
+        title: Text('Profile Card'),
         backgroundColor: Colors.green,
       ),
       body: Center(child: Text('About Me')),
