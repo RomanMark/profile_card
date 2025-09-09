@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: ProfileCard(),
-  ));
+  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: ProfileCard()));
 }
 
 class ProfileCard extends StatelessWidget {
@@ -14,15 +11,10 @@ class ProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'My Card'
-        ),
+        title: Text('My Card'),
+        backgroundColor: Colors.green,
       ),
-      body: Center(
-        child: Text(
-          'Roma'
-        ),
-      ),
+      body: Center(child: Text('Roma')),
     );
   }
 }
