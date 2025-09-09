@@ -1,55 +1,73 @@
 import 'package:flutter/material.dart';
+import 'package:profile_card/screens/achievements_screen.dart';
+import 'package:profile_card/screens/contact_screen.dart';
+import 'package:profile_card/screens/projects_screen.dart';
+import 'package:profile_card/screens/skills_screen.dart';
+import 'screens/about_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() {
-  runApp(MaterialApp(debugShowCheckedModeBanner: false, home: ProfileCard()));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: ProfileApp(),
+  ));
 }
 
-class ProfileCard extends StatelessWidget {
-  const ProfileCard({super.key});
+class ProfileApp extends StatefulWidget {
+  const ProfileApp({super.key});
+
+  @override
+  _ProfileAppState createState() => _ProfileAppState();
+}
+
+class _ProfileAppState extends State<ProfileApp> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    HomeScreen(),
+    AboutScreen(),
+    SkillsScreen(),
+    ProjectsScreen(),
+    AchievementsScreen(),
+    ContactScreen(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    const String name = "Roman Markilov";
-    const String position = "Flutter Developer";
-    const String location = "Tallinn,Estonia";
-    const String email = "romanmarkilov@gmail.com";
-    const String phone = "+37256381344";
-
     return Scaffold(
-      body: Center(
-        child: Stack(
-          clipBehavior: Clip.none,
-          children: [
-            ClipRRect(
-                child: Column(
-                  children: [
-                    SizedBox(height: 250),
-                    Text(
-                      name,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                      ),
-                    ),
-                    Text(position, style: TextStyle(fontSize: 20)),
-                    SizedBox(height: 30),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [Text(email), Text(location), Text(phone)],
-                    ),
-                  ],
-                ),
-            ),
-            const Positioned(
-              top: 100,
-              left: 150,
-              child: CircleAvatar(
-                backgroundImage: AssetImage(AutofillHints.addressCity),
-                radius: 60,
-              ),
-            ),
-          ],
-        ),
+      body: PageView(
+        controller: _pageController,
+        physics: BouncingScrollPhysics(),
+        onPageChanged: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
+        children: _screens,
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.black,
+        fixedColor: Colors.black,
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+            _pageController.animateToPage(
+              index,
+              duration: Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+            );
+          });
+        },
+        items: [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'About Me'),
+          BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Skills'),
+          BottomNavigationBarItem(icon: Icon(Icons.work), label: 'Projects'),
+          BottomNavigationBarItem(icon: Icon(Icons.emoji_events), label: 'Achievements'),
+          BottomNavigationBarItem(icon: Icon(Icons.contact_mail), label: 'Contact'),
+        ],
       ),
     );
   }
