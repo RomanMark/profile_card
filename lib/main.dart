@@ -14,7 +14,7 @@ class ProfileCard extends StatelessWidget {
         title: Text('My Card'),
         backgroundColor: Colors.green,
       ),
-      body: Center(child: Text('Roma')),
+      body: Center(child: Text('About me')),
     );
   }
 }
