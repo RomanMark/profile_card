@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:profile_card/appearance/app_colors.dart';
 import 'package:profile_card/screens/achievements_screen.dart';
 import 'package:profile_card/screens/contact_screen.dart';
 import 'package:profile_card/screens/projects_screen.dart';
@@ -7,10 +8,31 @@ import 'screens/about_screen.dart';
 import 'screens/home_screen.dart';
 
 void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: ProfileApp(),
-  ));
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: AppColors.primary,
+        scaffoldBackgroundColor: AppColors.background,
+        textTheme: const TextTheme(
+          headlineMedium: TextStyle(
+            color: AppColors.textPrimary,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyLarge: TextStyle(color: AppColors.textPrimary, fontSize: 16),
+          bodyMedium: TextStyle(color: AppColors.secondary, fontSize: 14),
+        ),
+        bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          backgroundColor: AppColors.primary,
+          selectedItemColor: AppColors.accent,
+          unselectedItemColor: AppColors.mutedAccent,
+          showUnselectedLabels: true,
+          type: BottomNavigationBarType.fixed,
+        ),
+      ),
+      home: ProfileApp(),
+    ),
+  );
 }
 
 class ProfileApp extends StatefulWidget {
@@ -47,8 +69,6 @@ class _ProfileAppState extends State<ProfileApp> {
         children: _screens,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        fixedColor: Colors.black,
         currentIndex: _currentIndex,
         onTap: (index) {
           setState(() {
@@ -60,13 +80,19 @@ class _ProfileAppState extends State<ProfileApp> {
             );
           });
         },
-        items: [
+        items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'About Me'),
           BottomNavigationBarItem(icon: Icon(Icons.bar_chart), label: 'Skills'),
           BottomNavigationBarItem(icon: Icon(Icons.work), label: 'Projects'),
-          BottomNavigationBarItem(icon: Icon(Icons.emoji_events), label: 'Achievements'),
-          BottomNavigationBarItem(icon: Icon(Icons.contact_mail), label: 'Contact'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.emoji_events),
+            label: 'Achievements',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_mail),
+            label: 'Contact',
+          ),
         ],
       ),
     );
